@@ -1,6 +1,6 @@
 # Frontend Descuentos
 
-## Se actualizo el frontend de la celula descuentos siguiendo el estilo que tiene la celua de práctica
+## Se actualizo el frontend de la celula descuentos siguiendo el estilo que tiene la celula de práctica
 
 El diseño esta hecho con tailwind CSS
 
