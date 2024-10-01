@@ -1,12 +1,13 @@
-// src/App.js
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import SearchComponent from './components/SearchComponent';
-import FilterBar from './components/FilterBar';
-import ProductCard from './components/ProductCard';
 import products from './components/products';
-import Header from './components/Header';
-import Footer from './components/Footer'; 
+
+// Lazy loading
+const SearchComponent = lazy(() => import('./components/SearchComponent'));
+const FilterBar = lazy(() => import('./components/FilterBar'));
+const ProductCard = lazy(() => import('./components/ProductCard'));
+const Header = lazy(() => import('./components/Header'));
+const Footer = lazy(() => import('./components/Footer'));
 
 function App() {
   const [likedProducts, setLikedProducts] = useState(products);
