@@ -47,6 +47,7 @@ function App() {
 
   return (
     <Router>
+      <Suspense fallback={<div>Cargando...</div>}>
       <Routes>
         <Route path="/" element={
           <div className="min-h-screen bg-gray-100 text-center">
@@ -72,6 +73,7 @@ function App() {
           </div>
         } />
       </Routes>
+      </Suspense>
     </Router>
   );
 }
