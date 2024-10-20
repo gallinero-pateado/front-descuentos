@@ -6,12 +6,10 @@ function FilterBar({ handleCategoryFilter, handlePriceSort }) {
     <div className="flex justify-center items-center space-x-4 my-4">
       {/* Filtro por categorías */}
       <select onChange={handleCategoryFilter} className="p-2 border rounded w-48 h-10">
-        <option value="">Todas las categorías</option>
-        <option value="Saludable">Saludable</option>
-        <option value="Tacos">Tacos</option>
-        <option value="Pizzas">Pizzas</option>
-        <option value="Pastas">Pastas</option>
-        <option value="Hamburguesas">Carne</option>
+        <option value="">Marca</option>
+        <option value="burgerking">Burger King</option>
+        <option value="wendys">Wendys</option>
+
       </select>
       
       {/* Filtro por precio */}

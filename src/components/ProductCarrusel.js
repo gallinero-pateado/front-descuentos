@@ -4,9 +4,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../App.css'; // Para cambiar el color de las flechitas
 import ErrorMessage from './ErrorMessage';
+import { v4 as uuidv4 } from 'uuid'; // Importar uuidv4 para generar claves únicas
 
 // Componente de Carrusel de Productos
-function ProductCarrusel({ products }) { //tambien desde aquí se estan llamando a los productos que estan ingresados manualmente
+function ProductCarrusel({ products }) {
   const [showError, setShowError] = useState(false); // Estado para controlar la visualización del mensaje de error
 
   // Configuración del carrusel utilizando react-slick
@@ -22,8 +23,7 @@ function ProductCarrusel({ products }) { //tambien desde aquí se estan llamando
         breakpoint: 1024, // Resolución máxima de 1024px
         settings: {
           slidesToShow: 2, // Mostrar 2 productos en pantallas medianas
-          slidesToScroll: 1, // Desplazar un producto a la vez
-          arrows: true,
+          slidesToScroll: 1,
         },
       },
       {
@@ -31,61 +31,31 @@ function ProductCarrusel({ products }) { //tambien desde aquí se estan llamando
         settings: {
           slidesToShow: 1, // Mostrar 1 producto en pantallas pequeñas
           slidesToScroll: 1,
-          arrows: true,
         },
       },
     ],
   };
 
-  // Función para mostrar mensaje de error al hacer clic
-  const handleShowError = () => {
-    setShowError(true); // Mostrar el mensaje de error
-    setTimeout(() => {
-      setShowError(false); // Ocultar el mensaje de error después de 3 segundos
-    }, 3000);
-  };
-
   return (
     <div className="mx-auto my-8 px-2 w-full max-w-6xl">
-      {/* Título del Carrusel */}
-      <h2 className="text-3xl font-bold mb-6 text-blue-800">Ofertas Destacadas</h2>
+      <h2 className="text-3xl font-bold rubik mb-6 text-[#A3D9D3]">Ofertas Destacadas</h2>
 
-      {/* Mostrar mensaje de error si showError es true */}
-      {showError && (
-        <div className="mb-4">
-          <ErrorMessage message="La funcionalidad de más información aún no está disponible." />
-        </div>
-      )}
-
-      {/* Componente Slider de react-slick */}
       <Slider {...settings}>
-        {/* Mapeo de los productos para generar las tarjetas dentro del carrusel */}
         {products.map((product) => (
-          <div key={product.id} className="px-1"> {/* Ajustar los márgenes laterales */}
-            <div className="p-3 bg-white rounded-lg shadow-lg max-w-sm mx-auto"> {/* Limitar el tamaño de las tarjetas */}
-              {/* Imagen del producto */}
+          <div key={product.id ? product.id : uuidv4()} className="px-1"> {/* Usar product.id o generar uuid */}
+            <div className="p-3 bg-white rounded-lg shadow-lg max-w-sm mx-auto">
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-40 object-cover rounded-t-lg" // Reducir la altura de la imagen
+                className="w-full h-40 object-cover rounded-t-lg"
               />
-              <div className="p-2"> {/* Reducir padding interno */}
-                {/* Nombre del producto */}
-                <h3 className="text-md font-semibold text-gray-900">{product.name}</h3> {/* Texto más pequeño */}
+              <div className="p-2">
+                <h3 className="text-md font-semibold text-gray-900">{product.name}</h3>
+                <p className="text-gray-700 text-xs mb-2">{product.description}</p>
                 
-                {/* Descripción del producto */}
-                <p className="text-gray-700 text-xs mb-2">{product.description}</p> {/* Texto de descripción más pequeño */}
-                
-                {/* Precio del producto */}
-                <p className="text-green-600 font-bold text-base my-1">${product.price}</p> {/* Reducir el tamaño del precio */}
-                
-                {/* Botón para ver más detalles */}
-                <button
-                  onClick={handleShowError} // Mostrar el mensaje de error al hacer clic
-                  className="inline-block bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-800 transition duration-300 text-sm" // Botón más pequeño
-                >
-                  Más Información
-                </button>
+                {/* Mostrar precios */}
+                <p className="text-sm text-gray-500 line-through">{product.previous_price}</p> {/* Precio anterior */}
+                <p className="text-green-600 font-bold text-base my-1">{product.price}</p> {/* Precio con descuento */}
               </div>
             </div>
           </div>
