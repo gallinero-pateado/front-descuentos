@@ -18,6 +18,7 @@ type Producto struct {
 	Precio         string `json:"price"`
 	PrecioAnterior string `json:"previous_price"`
 	Descuento      string `json:"discount"`
+	Tipo 		   string `json:"type"`
 	Imagen         string `json:"image"`
 }
 
@@ -87,6 +88,7 @@ func ObtenerProductos(c *gin.Context) {
 			Precio:         precio,
 			PrecioAnterior: precioAnterior,
 			Descuento:      descuento,
+			Tipo: 			"producto",
 			Imagen:         imagen,
 		})
 	})
@@ -100,7 +102,7 @@ func main() {
 
 	// Configurar CORS para permitir solicitudes desde el frontend
 	r.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"http://localhost:3000"}, // Cambia si tu frontend está en otra URL
+		AllowOrigins: []string{"http://localhost:3000"},
 		AllowMethods: []string{"GET", "POST"},
 		AllowHeaders: []string{"Origin", "Content-Type"},
 	}))

@@ -47,6 +47,7 @@ if response.status_code == 200:
             'category': 'burgerking', 
             'image': image,
             'description': descripcion,
+            'type': 'cupon',
             'price': 'Sin Precio',  # Precio con descuento
         })
     
