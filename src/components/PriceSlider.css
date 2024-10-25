@@ -1,0 +1,31 @@
+.slider {
+  height: 4px;
+  width: 50%; 
+  background-color: #e2e2e8; 
+  border-radius: 2px;
+  position: relative;
+  margin: 0 auto; 
+}
+
+
+.slider .track-1 {
+  background-color: #0092BC; /* Color azul para la parte activa */
+  height: 100%;
+  border-radius: 2px;
+}
+
+
+.slider .thumb {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background-color: #0092BC; /* Color azul para el thumb */
+  cursor: grab;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3); 
+}
+
+
+.slider .thumb.active {
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+

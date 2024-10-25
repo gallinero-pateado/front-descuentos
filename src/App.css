@@ -1,3 +1,63 @@
+/* Cambiar el color de las flechas del carrusel */
+.slick-prev:before, .slick-next:before {
+  color: #0092BC; /* Color personalizado para las flechas */
+  font-size: 30px; /* Tamaño del ícono */
+}
+
+.slick-prev:hover:before, .slick-next:hover:before {
+  color: #A3D9D3; /* Cambiar el color de las flechas al pasar el cursor */
+}
+
+/* Asegurar que las flechas se muestren correctamente */
+.slick-prev, .slick-next {
+  z-index: 2; /* Asegurar que las flechas estén por encima del contenido */
+  display: block !important; /* Forzar que las flechas se muestren */
+  top: 50%; /* Centrarlas verticalmente */
+  transform: translateY(-50%); /* Alinearlas verticalmente */
+}
+
+.slick-prev {
+  left: -35px; /* Acercar la flecha izquierda */
+}
+
+
+@media (max-width: 1024px) {
+  /* Acercar las flechas al contenedor del carrusel */
+.slick-prev {
+  left: -10px; /* Acercar la flecha izquierda */
+}
+
+.slick-next {
+  right: -8px; /* Acercar la flecha derecha */
+}
+
+  .slick-prev, .slick-next {
+    width: 30px; /* Tamaño reducido para dispositivos móviles */
+    height: 30px;
+    top: 50%; /* Alinearlas un poco más arriba para pantallas pequeñas */
+  }
+}
+
+
+/* Ajuste de las flechas en pantallas pequeñas */
+@media (max-width: 768px) {
+  /* Acercar las flechas al contenedor del carrusel */
+.slick-prev {
+  left: -1px; /* Acercar la flecha izquierda */
+}
+
+.slick-next {
+  right: -1px; /* Acercar la flecha derecha */
+}
+
+  .slick-prev, .slick-next {
+    width: 30px; /* Tamaño reducido para dispositivos móviles */
+    height: 30px;
+    top: 50%; /* Alinearlas un poco más arriba para pantallas pequeñas */
+  }
+}
+
+
 .App {
   text-align: center;
 }
@@ -35,4 +95,32 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Estilo del modal */
+.modal-content {
+  position: relative;
+  width: 500px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  outline: none;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Botón para cerrar el modal */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
 }
