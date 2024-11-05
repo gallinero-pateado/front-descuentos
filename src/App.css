@@ -20,6 +20,16 @@
   left: -35px; /* Acercar la flecha izquierda */
 }
 
+body.light {
+  background-color: #f0f4f8;
+  color: #000;
+}
+
+body.dark {
+  background-color: #1a202c;
+  color: #fff;
+}
+
 
 @media (max-width: 1024px) {
   /* Acercar las flechas al contenedor del carrusel */

@@ -3,11 +3,14 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import productsFromFile from './components/cupones.json'; // Productos locales
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import './App.css'; // Para los estilos de modo claro/oscuro
+
 // Componentes de mensajes
 import SuccessMessage from './components/SuccessMessage';
 import ErrorMessage from './components/ErrorMessage';
 import LoadingMessage from './components/LoadingMessage';
 import PriceSlider from './components/PriceSlider'; 
+import DarkModeToggle from './components/DarkModeToggle'; // Importamos el toggle para el modo oscuro
 
 // Lazy loading
 const SearchComponent = lazy(() => import('./components/SearchComponent'));
@@ -27,11 +30,12 @@ function App() {
   const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity });  // Estado del rango de precios
   const [minPrice, setMinPrice] = useState(0); // Min Price
   const [maxPrice, setMaxPrice] = useState(10000); // Max Price
-
   const [isLoading, setIsLoading] = useState(false); // Estado de carga
   const [hasError, setHasError] = useState(false);   // Estado de error
   const [showSuccessMessage, setShowSuccessMessage] = useState(false); // Controla el mensaje de éxito
 
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light'); // Estado para el tema
+  
   // Estado para los productos del scraping
   const [scrapedProducts, setScrapedProducts] = useState([]);
 
@@ -80,6 +84,27 @@ function App() {
     }
   
   }, [scrapedProducts]);
+
+  // Detectar preferencia del sistema y hora local para modo oscuro
+  useEffect(() => {
+    const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const hour = new Date().getHours();
+
+    if (hour >= 19 || hour < 6 || userPrefersDark) {
+      setTheme('dark');
+    }
+  }, []);
+
+  // Persistir el tema en el localStorage
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+    document.body.className = theme; // Cambiar la clase del body para aplicar los estilos de tema
+  }, [theme]);
+
+  // Función para alternar entre modo claro y oscuro
+  const toggleTheme = () => {
+    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
 
   // Filtrar productos por categoría, tipo, precio y rango de precios
   const handleFilters = (selectedCategory, selectedPriceSort, selectedType) => {
@@ -167,8 +192,9 @@ function App() {
       <Suspense fallback={<LoadingMessage message="Cargando componentes..." />}>
         <Routes>
           <Route path="/" element={
-            <div className="min-h-screen bg-[#DAEDF2] text-center relative">
+            <div className={`min-h-screen text-center relative ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-[#DAEDF2] text-black'}`}>
               <Header /> {/* Manda el header */}
+              <DarkModeToggle theme={theme} toggleTheme={toggleTheme} /> {/* Botón para alternar modo oscuro */}
 
               {/* Mensajes de estado */}
               {isLoading && <LoadingMessage message="Cargando productos..." />}
@@ -182,17 +208,18 @@ function App() {
 
               {/* Sección principal */}
               <section className="my-12">
-                <h1 className="text-4xl font-bold text-[#0092bc] mb-6">Bienvenido a la sección de descuentos</h1>
-                <p className="text-lg mb-8 text-gray-600">Encuentra los mejores descuentos en comida.</p>
+                <h1 className="text-4xl font-bold mb-6">Bienvenido a la sección de descuentos</h1>
+                <p className="text-lg mb-8">Encuentra los mejores descuentos en comida.</p>
 
                 {/* Componente del carrusel de productos destacados */}
-                <ProductCarrusel products={scrapedProducts.slice(0, 5)} />
+                <ProductCarrusel products={scrapedProducts.slice(0, 5)} theme={theme}/>
 
                 <SearchComponent products={likedProducts} setFilteredProducts={setFilteredProducts} />
                 <FilterBar 
                   handleCategoryFilter={handleCategoryFilter} 
                   handlePriceSort={handlePriceSort} 
                   handleTypeFilter={handleTypeFilter} 
+                  theme={theme} 
                 />
 
                 {/* Slider de precio */}
@@ -206,12 +233,12 @@ function App() {
               {/* Tarjetas de productos */}
               <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-8 mb-12">
                 {filteredProducts.length === 0 ? (
-                  <div className="flex items-center justify-center text-center text-xl font-semibold text-gray-600 h-40 w-full">
+                  <div className="flex items-center justify-center text-center text-xl font-semibold h-40 w-full">
                     No hay productos disponibles.
                   </div>
                 ) : (
                   filteredProducts.map(product => (
-                    <ProductCard key={uuidv4()} product={product} toggleLike={toggleLike} />
+                    <ProductCard key={uuidv4()} product={product} toggleLike={toggleLike} theme={theme} />
                   ))
                 )}
               </section>
