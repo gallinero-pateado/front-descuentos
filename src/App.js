@@ -193,8 +193,8 @@ function App() {
         <Routes>
           <Route path="/" element={
             <div className={`min-h-screen text-center relative ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-[#DAEDF2] text-black'}`}>
-              <Header /> {/* Manda el header */}
-              <DarkModeToggle theme={theme} toggleTheme={toggleTheme} /> {/* Botón para alternar modo oscuro */}
+              <Header theme={theme} toggleTheme={toggleTheme} />{/* Manda el header */}
+              
 
               {/* Mensajes de estado */}
               {isLoading && <LoadingMessage message="Cargando productos..." />}

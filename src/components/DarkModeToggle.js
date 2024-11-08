@@ -1,13 +1,27 @@
 import React from 'react';
+import { Sun, Moon } from 'lucide-react'; // Importamos los íconos de sol y luna
 
 const DarkModeToggle = ({ theme, toggleTheme }) => {
   return (
-    <button
+    <div
       onClick={toggleTheme}
-      className="fixed top-4 right-4 p-2 bg-gray-200 dark:bg-gray-800 text-black dark:text-white rounded-full shadow-md transition duration-300"
+      className={`relative w-20 h-10 rounded-full p-1 cursor-pointer flex items-center justify-between transition-colors duration-300 ${
+        theme === 'dark' ? 'bg-gray-800' : 'bg-gray-300'
+      }`}
     >
-      {theme === 'light' ? '🌙 Modo Oscuro' : '☀️ Modo Claro'}
-    </button>
+      {/* Ícono de Sol para modo claro */}
+      <Sun className={`w-5 h-5 ${theme === 'dark' ? 'text-gray-500' : 'text-yellow-500'} ml-1`} />
+
+      {/* Elemento deslizante */}
+      <div
+        className={`absolute w-7 h-7 rounded-full shadow-md transform transition-transform duration-300 ${
+          theme === 'dark' ? 'bg-yellow-500 translate-x-10' : 'bg-white translate-x-0'
+        }`}
+      />
+
+      {/* Ícono de Luna para modo oscuro */}
+      <Moon className={`w-5 h-5 ${theme === 'dark' ? 'text-blue-400' : 'text-gray-500'} mr-1`} />
+    </div>
   );
 };
 

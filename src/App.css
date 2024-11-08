@@ -1,3 +1,4 @@
+
 /* Cambiar el color de las flechas del carrusel */
 .slick-prev:before, .slick-next:before {
   color: #0092BC; /* Color personalizado para las flechas */
@@ -17,7 +18,7 @@
 }
 
 .slick-prev {
-  left: -35px; /* Acercar la flecha izquierda */
+  left: -35px ; /* Acercar la flecha izquierda */
 }
 
 body.light {
@@ -34,11 +35,11 @@ body.dark {
 @media (max-width: 1024px) {
   /* Acercar las flechas al contenedor del carrusel */
 .slick-prev {
-  left: -10px; /* Acercar la flecha izquierda */
+  left: -5px !important; /* Acercar la flecha izquierda */
 }
 
 .slick-next {
-  right: -8px; /* Acercar la flecha derecha */
+  right: -5px !important; /* Acercar la flecha derecha */
 }
 
   .slick-prev, .slick-next {
@@ -53,11 +54,11 @@ body.dark {
 @media (max-width: 768px) {
   /* Acercar las flechas al contenedor del carrusel */
 .slick-prev {
-  left: -1px; /* Acercar la flecha izquierda */
+  left: -2px !important; /* Acercar la flecha izquierda */
 }
 
 .slick-next {
-  right: -1px; /* Acercar la flecha derecha */
+  right: -2px !important; /* Acercar la flecha derecha */
 }
 
   .slick-prev, .slick-next {

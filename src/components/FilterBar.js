@@ -3,12 +3,11 @@ import Ubicacion from './Ubicacion'; // Importamos el botón de ubicación
 
 function FilterBar({ handleCategoryFilter, handlePriceSort, handleTypeFilter, theme }) {
   return (
-    <div className="flex justify-center items-center space-x-4 my-4">
+    <div className="flex flex-wrap justify-center items-center gap-4 my-4">
       {/* Filtro por categorías */}
       <select
         onChange={handleCategoryFilter}
-        // Para el modo oscuro
-        className={`p-2 border rounded w-48 h-10 ${theme === 'dark' ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-black border-gray-300'}`}
+        className={`p-2 border rounded w-36 h-10 ${theme === 'dark' ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-black border-gray-300'}`}
       >
         <option value="">Marca</option>
         <option value="burgerking">Burger King</option>
@@ -18,8 +17,7 @@ function FilterBar({ handleCategoryFilter, handlePriceSort, handleTypeFilter, th
       {/* Filtro por precio */}
       <select
         onChange={handlePriceSort}
-        // Para el modo oscuro 
-        className={`p-2 border rounded w-48 h-10 ${theme === 'dark' ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-black border-gray-300'}`}
+        className={`p-2 border rounded w-36 h-10 ${theme === 'dark' ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-black border-gray-300'}`}
       >
         <option value="">Ordenar por Precio</option>
         <option value="low-high">Menor a Mayor</option>
@@ -29,8 +27,7 @@ function FilterBar({ handleCategoryFilter, handlePriceSort, handleTypeFilter, th
       {/* Filtro por tipo */}
       <select
         onChange={handleTypeFilter}
-        // Para modo oscuro
-        className={`p-2 border rounded w-48 h-10 ${theme === 'dark' ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-black border-gray-300'}`}
+        className={`p-2 border rounded w-36 h-10 ${theme === 'dark' ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-black border-gray-300'}`}
       >
         <option value="">Tipo</option>
         <option value="producto">Producto</option>
@@ -38,7 +35,9 @@ function FilterBar({ handleCategoryFilter, handlePriceSort, handleTypeFilter, th
       </select>
 
       {/* Botón para ingresar ubicación */}
-      <Ubicacion />
+      <div className="w-full sm:w-auto flex justify-center">
+        <Ubicacion />
+      </div>
     </div>
   );
 }
