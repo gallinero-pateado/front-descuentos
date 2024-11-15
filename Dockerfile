@@ -19,14 +19,8 @@ COPY . .
 # Compilar la aplicación para producción
 RUN npm run build
 
-# Etapa 2: Servir la aplicación con Nginx
-FROM nginx:alpine
+# Exponer el puerto en el que React servirá la aplicación
+EXPOSE 3000
 
-# Copiar los archivos estáticos generados en la etapa de construcción
-COPY --from=build /app/build /usr/share/nginx/html
-
-# Exponer el puerto en el que Nginx servirá la aplicación
-EXPOSE 80
-
-# Comando por defecto para ejecutar Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Comando por defecto para ejecutar servidor
+CMD ["npm", "start"]
