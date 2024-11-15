@@ -1,5 +1,5 @@
 # Etapa 1: Construcción de la aplicación React
-FROM node:14-alpine as build
+FROM node:20-alpine as build
 
 # Directorio de trabajo dentro del contenedor
 WORKDIR /app
@@ -19,8 +19,14 @@ COPY . .
 # Compilar la aplicación para producción
 RUN npm run build
 
-# Exponer el puerto en el que React servirá la aplicación
-EXPOSE 3000
+# Etapa 2: Servir la aplicación con Nginx
+FROM nginx:alpine
 
-# Comando por defecto para ejecutar servidor
-CMD ["npm", "start"]
+# Copiar los archivos estáticos generados en la etapa de construcción
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Exponer el puerto en el que Nginx servirá la aplicación
+EXPOSE 80
+
+# Comando por defecto para ejecutar Nginx
+CMD ["nginx", "-g", "daemon off;"]
