@@ -50,6 +50,8 @@ body.dark {
 }
 
 
+
+
 /* Ajuste de las flechas en pantallas pequeñas */
 @media (max-width: 768px) {
   /* Acercar las flechas al contenedor del carrusel */

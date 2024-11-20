@@ -12,6 +12,7 @@ function FilterBar({ handleCategoryFilter, handlePriceSort, handleTypeFilter, th
         <option value="">Marca</option>
         <option value="burgerking">Burger King</option>
         <option value="wendys">Wendys</option>
+        <option value="Oxxo">Oxxo</option>
       </select>
 
       {/* Filtro por precio */}
@@ -31,7 +32,7 @@ function FilterBar({ handleCategoryFilter, handlePriceSort, handleTypeFilter, th
       >
         <option value="">Tipo</option>
         <option value="producto">Producto</option>
-        <option value="cupon">Cupón</option>
+        <option value="Cupon">Cupón</option>
       </select>
 
       {/* Botón para ingresar ubicación */}
