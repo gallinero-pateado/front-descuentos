@@ -123,9 +123,15 @@ function App() {
           const priceA = a.price === 'Cupón' ? Infinity : parseInt(a.price.replace(/[^0-9]/g, ''));
           const priceB = b.price === 'Cupón' ? Infinity : parseInt(b.price.replace(/[^0-9]/g, ''));
 
+          // Ordenar cupones siempre al final
+          if (a.price === 'Cupón' && b.price !== 'Cupón') return 1;
+          if (a.price !== 'Cupón' && b.price === 'Cupón') return -1;
+
+          // Ordenar de menor a mayor o de mayor a menor según selección
           return selectedPriceSort === 'low-high' ? priceA - priceB : priceB - priceA;
         });
       }
+
 
       // Filtrar por rango de precios
       filtered = filtered.filter(product => {
@@ -218,20 +224,20 @@ const handlePriceRangeChange = (min, max) => {
                 </section>
 
                 <section
-  className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-12 mb-12 transition-opacity duration-300 ${
-    isTransitioning ? 'opacity-0' : 'opacity-100'
-  }`}
->
-  {filteredProducts.length === 0 ? (
-    <div className="flex items-center justify-center text-center text-xl font-semibold h-40 w-full">
-      No hay productos disponibles.
-    </div>
-  ) : (
-    filteredProducts.map(product => (
-      <ProductCard key={uuidv4()} product={product} toggleLike={toggleLike} theme={theme} />
-    ))
-  )}
-</section>
+                  className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-12 mb-12 transition-opacity duration-300 ${
+                    isTransitioning ? 'opacity-0' : 'opacity-100'
+                  }`}
+                >
+                  {filteredProducts.length === 0 ? (
+                    <div className="flex items-center justify-center text-center text-xl font-semibold h-40 w-full">
+                      No hay productos disponibles.
+                    </div>
+                  ) : (
+                    filteredProducts.map(product => (
+                      <ProductCard key={uuidv4()} product={product} toggleLike={toggleLike} theme={theme} />
+                    ))
+                  )}
+                </section>
 
 
                 <Footer />
