@@ -31,6 +31,19 @@ body.dark {
   color: #fff;
 }
 
+.transition-opacity {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-100 {
+  opacity: 1;
+}
+
+
 
 @media (max-width: 1024px) {
   /* Acercar las flechas al contenedor del carrusel */

@@ -32,6 +32,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false); // Estado de carga
   const [hasError, setHasError] = useState(false); // Estado de error
   const [showSuccessMessage, setShowSuccessMessage] = useState(false); // Controla el mensaje de éxito
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light'); // Estado para el tema
 
@@ -85,15 +86,7 @@ function App() {
   }
 }, [scrapedProducts]);
 
-  // Detectar preferencia del sistema y hora local para modo oscuro
-  useEffect(() => {
-    const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const hour = new Date().getHours();
 
-    if (hour >= 19 || hour < 6 || userPrefersDark) {
-      setTheme('dark');
-    }
-  }, []);
 
   // Persistir el tema en el localStorage
   useEffect(() => {
@@ -152,11 +145,18 @@ function App() {
     }
   };
 
-  // Manejar el cambio de rango de precios
-  const handlePriceRangeChange = (min, max) => {
-    setPriceRange({ min, max });
+// Manejar el cambio de rango de precios con animación
+const handlePriceRangeChange = (min, max) => {
+  setPriceRange({ min, max });
+
+  // Inicia transición
+  setIsTransitioning(true);
+
+  setTimeout(() => {
     handleFilters(categoryFilter, priceFilter, typeFilter);
-  };
+    setIsTransitioning(false); // Finaliza transición después de actualizar productos
+  }, 2000); // Tiempo que coincide con la duración de la animación en CSS
+};
 
   const handleCategoryFilter = e => {
     const selectedCategory = e.target.value;
@@ -217,15 +217,22 @@ function App() {
                   <PriceSlider minPrice={minPrice} maxPrice={maxPrice} onPriceRangeChange={handlePriceRangeChange} />
                 </section>
 
-                <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-12 mb-12">
-                  {filteredProducts.length === 0 ? (
-                    <div className="flex items-center justify-center text-center text-xl font-semibold h-40 w-full">
-                      No hay productos disponibles.
-                    </div>
-                  ) : (
-                    filteredProducts.map(product => <ProductCard key={uuidv4()} product={product} toggleLike={toggleLike} theme={theme} />)
-                  )}
-                </section>
+                <section
+  className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-12 mb-12 transition-opacity duration-300 ${
+    isTransitioning ? 'opacity-0' : 'opacity-100'
+  }`}
+>
+  {filteredProducts.length === 0 ? (
+    <div className="flex items-center justify-center text-center text-xl font-semibold h-40 w-full">
+      No hay productos disponibles.
+    </div>
+  ) : (
+    filteredProducts.map(product => (
+      <ProductCard key={uuidv4()} product={product} toggleLike={toggleLike} theme={theme} />
+    ))
+  )}
+</section>
+
 
                 <Footer />
               </div>
