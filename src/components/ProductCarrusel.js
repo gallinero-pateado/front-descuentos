@@ -37,7 +37,7 @@ function ProductCarrusel({ products, theme }) {
   };
 
   return (
-<div className="carousel mx-auto my-8 px-2 w-full max-w-4xl"> {/* Cambié max-w-6xl a max-w-4xl */}
+<div className="carousel mx-auto my-8 px-4 w-full max-w-5xl"> 
   <h2 className={`text-3xl font-bold rubik mb-6 ${theme === 'dark' ? 'text-[#A3D9D3]' : 'text-[#0092BC]'}`}>Ofertas Destacadas</h2>
 
   <Slider {...settings}>
