@@ -10,7 +10,7 @@ spec:
   tls:
   - hosts: 
     - descuentos.tssw.info
-    secretName: cert-ulink
+    secretName: cert-front-descuentos
   rules:
     - host: descuentos.tssw.info
       http:
