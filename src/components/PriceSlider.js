@@ -16,7 +16,7 @@ const PriceSlider = ({ minPrice, maxPrice, onPriceRangeChange }) => {
   };
 
   return (
-    <div style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '5px', boxShadow: '0 0 5px rgba(0, 0, 0, 0.1)' }}>
+    <div style={{ padding: '20px' }}>
       <h2>Filtrar por Rango de Precios</h2>
       <p>Rango de precio: ${values[0]} - ${values[1]}</p>
       <Slider

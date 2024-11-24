@@ -1,5 +1,5 @@
 # Etapa 1: Construcción de la aplicación React
-FROM node:14-alpine as build
+FROM node:20-alpine as build
 
 # Directorio de trabajo dentro del contenedor
 WORKDIR /app
