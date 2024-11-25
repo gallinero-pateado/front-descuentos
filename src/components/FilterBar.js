@@ -18,7 +18,7 @@ function FilterBar({ handleCategoryFilter, handlePriceSort, handleTypeFilter, th
       {/* Filtro por precio */}
       <select
         onChange={handlePriceSort}
-        className={`p-2 border rounded w-36 h-10 ${theme === 'dark' ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-black border-gray-300'}`}
+        className={`p-2 border rounded w-42 h-10 ${theme === 'dark' ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-black border-gray-300'}`}
       >
         <option value="">Ordenar por Precio</option>
         <option value="low-high">Menor a Mayor</option>
@@ -35,10 +35,10 @@ function FilterBar({ handleCategoryFilter, handlePriceSort, handleTypeFilter, th
         <option value="Cupon">Cupón</option>
       </select>
 
-      {/* Botón para ingresar ubicación */}
+      {/* Botón para ingresar ubicación 
       <div className="w-full sm:w-auto flex justify-center">
         <Ubicacion />
-      </div>
+        */}
     </div>
   );
 }
