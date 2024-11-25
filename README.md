@@ -1,5 +1,17 @@
 # Frontend Descuentos
 
+## Archivo .env
+
+Modifiqué el archivo `App.js` para que al hacer la llamada a un URL, se obtenga de una variable de entorno. Para generear esta se debe crear un archivo `.env` en el directorio raiz del proyecto, de la siguiente forma:
+
+```
+REACT_APP_URL_BACK="http://localhost:8080"
+```
+
+Luego el codigo concatena esta variable con `/descuentos`. Para producción se usa el URL `https://api-descuentos.tssw.info`.
+
+- Gerardo Araneda
+
 ## Se actualizo el frontend de la celula descuentos siguiendo el estilo que tiene la celula de práctica
 
 El diseño esta hecho con tailwind CSS
