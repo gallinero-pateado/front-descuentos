@@ -18,6 +18,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
+      - name: Crear archivo .env
+        run: echo "REACT_APP_URL_BACK=\"${{ vars.URL_BACK_DESCUENTOS }}\"" > .env
 
       - name: Autenticarse con gcloud CLI
         uses: google-github-actions/auth@v1

@@ -43,7 +43,7 @@ function App() {
     const fetchScrapedProducts = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get('http://localhost:8080/descuentos'); // URL del backend
+        const response = await axios.get(process.env.REACT_APP_URL_BACK + '/descuentos'); // URL del backend
         setScrapedProducts(response.data); // Guardar productos obtenidos
         setIsLoading(false);
       } catch (error) {
