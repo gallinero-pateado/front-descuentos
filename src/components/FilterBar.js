@@ -35,9 +35,10 @@ function FilterBar({ handleCategoryFilter, handlePriceSort, handleTypeFilter, th
         <option value="Cupon">Cupón</option>
       </select>
 
-      {/* Botón para ingresar ubicación */}
+      {/* Botón para ingresar ubicación 
       <div className="w-full sm:w-auto flex justify-center">
         <Ubicacion />
+        */}
       </div>
     </div>
   );
