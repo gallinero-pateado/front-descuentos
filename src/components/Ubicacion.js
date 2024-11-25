@@ -4,6 +4,7 @@ const Ubicacion = ({theme}) => {
   const mapRef = useRef(null);
   const userMarkerRef = useRef(null);
 
+
   useEffect(() => {
     // Datos de ubicaciones
     const locales = [
@@ -186,23 +187,24 @@ const Ubicacion = ({theme}) => {
       },
     ];
 
-   // Define initMap como una función global
-    window.initMap = () => {
+    const initMap = () => {
       const coords = { lat: -33.466429, lng: -70.5985579 };
+
+      const mapStyles = [
+        {
+          featureType: "poi",
+          stylers: [{ visibility: "off" }],
+        },
+        {
+          featureType: "transit",
+          stylers: [{ visibility: "off" }],
+        },
+      ];
 
       const map = new window.google.maps.Map(mapRef.current, {
         zoom: 11,
         center: coords,
-        styles: [
-          {
-            featureType: "poi",
-            stylers: [{ visibility: "off" }],
-          },
-          {
-            featureType: "transit",
-            stylers: [{ visibility: "off" }],
-          },
-        ],
+        styles: mapStyles,
       });
 
       const infoWindow = new window.google.maps.InfoWindow();
@@ -219,17 +221,18 @@ const Ubicacion = ({theme}) => {
         });
 
         marker.addListener("click", () => {
-          // Estilo dinámico según el tema
+          // Aplicar estilos al contenido del InfoWindow
           const content = `
             <div style="
               padding: 10px;
               font-size: 14px;
-              color: ${theme === "dark" ? "#fff" : "#000"};
-              background-color: ${theme === "dark" ? "#333" : "#fff"};
+              color: ${theme === 'dark' ? '#fff' : '#000'};
+              background-color: ${theme === 'dark' ? '#333' : '#fff'};
               border-radius: 5px;
               box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
             ">
               <h3 style="margin: 0 0 5px; font-size: 16px; font-weight: bold;">${loc.nombre}</h3>
+
             </div>
           `;
           infoWindow.setContent(content);
@@ -278,14 +281,10 @@ const Ubicacion = ({theme}) => {
       addUserLocation();
     };
 
-    // Verifica si Google Maps API ya está cargada, si no, añade el script
-    if (!window.google || !window.google.maps) {
-      const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap&libraries=places`;
-      script.async = true;
-      document.head.appendChild(script);
+    if (window.google) {
+      initMap();
     } else {
-      window.initMap(); // Si ya está cargada, llama a initMap directamente
+      console.error("Google Maps API no está cargado.");
     }
   }, [theme]); // Dependencia en el tema para recargar los estilos
 

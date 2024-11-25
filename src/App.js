@@ -61,7 +61,7 @@ function App() {
     const fetchScrapedProducts = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get('http://localhost:8080/descuentos');
+        const response = await axios.get(process.env.REACT_APP_URL_BACK + '/descuentos'); // URL del backend
         if (response.data && response.data.products) {
           setScrapedProducts(response.data.products);
           setShowSuccessMessage(true);
