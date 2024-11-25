@@ -10,8 +10,8 @@ function FilterBar({ handleCategoryFilter, handlePriceSort, handleTypeFilter, th
         className={`p-2 border rounded w-36 h-10 ${theme === 'dark' ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-black border-gray-300'}`}
       >
         <option value="">Marca</option>
-        <option value="burgerking">Burger King</option>
-        <option value="wendys">Wendys</option>
+        <option value="Burger King">Burger King</option>
+        <option value="Wendys">Wendys</option>
         <option value="Oxxo">Oxxo</option>
       </select>
 
