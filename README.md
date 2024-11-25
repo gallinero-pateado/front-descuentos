@@ -39,6 +39,9 @@ Ejecutar "npm install uuid" para evitar errores de id de los productos
 
 Ejecutar "npm install react-slider" para usar el rango de precios
 
+Ejecutar "npm install js-cookie" para la autenticacion
+
+
 Ejecutar con "npm start"
 
 

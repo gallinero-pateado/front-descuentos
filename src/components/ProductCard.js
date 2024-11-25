@@ -1,5 +1,4 @@
 import React from 'react';
-import { Heart } from 'lucide-react';
 
 const ProductCard = ({ product, toggleLike, theme }) => {
   const hasNameOrDescription = product.name || product.description;
@@ -76,16 +75,28 @@ const ProductCard = ({ product, toggleLike, theme }) => {
       {/* Línea separadora */}
       <hr className={`my-4 ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'}`} />
 
-      {/* Logo del producto */}
-      <div className="flex justify-center">
-        {product.logo ? (
-          <img src={product.logo} alt="Logo de la tienda" className="h-9 object-contain" />
-        ) : (
-          <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-            Logo no disponible
-          </p>
-        )}
-      </div>
+    {/* Logo del producto */}
+    <div
+      className={`flex justify-center items-center p-2 rounded ${
+        theme === 'dark' ? 'bg-gray-800' : 'bg-gray-0'
+      }`}
+    >
+      {product.logo ? (
+        <img
+          src={product.logo}
+          alt="Logo de la tienda"
+          className="h-9 object-contain"
+          style={{
+            filter: theme === 'light' ? 'drop-shadow(0px 0px 2px black)' : 'none',
+          }} 
+        />
+      ) : (
+        <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+          Logo no disponible
+        </p>
+      )}
+    </div>
+
     </div>
   );
 };

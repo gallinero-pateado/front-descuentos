@@ -3,7 +3,6 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../App.css'; // Para cambiar el color de las flechitas
-import ErrorMessage from './ErrorMessage';
 import { v4 as uuidv4 } from 'uuid'; // Importar uuidv4 para generar claves únicas
 
 // Componente de Carrusel de Productos
@@ -18,6 +17,8 @@ function ProductCarrusel({ products, theme }) {
     slidesToShow: 3, // Número de productos visibles al mismo tiempo
     slidesToScroll: 1, // Número de productos que se desplazan por cada acción
     arrows: true, // Mostrar flechas de navegación
+    draggable: true, // Habilitar el arrastre con el mouse
+    swipeToSlide: true, // Permitir deslizamiento libre entre productos
     responsive: [ // Configuración para pantallas más pequeñas
       {
         breakpoint: 1024, // Resolución máxima de 1024px
@@ -35,6 +36,7 @@ function ProductCarrusel({ products, theme }) {
       },
     ],
   };
+  
 
   return (
 <div className="carousel mx-auto my-8 px-4 w-full max-w-5xl"> 
@@ -57,7 +59,10 @@ function ProductCarrusel({ products, theme }) {
               <p className={`text-sm line-through ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}`}>{product.previous_price}</p>
               <p className="text-green-600 font-bold text-base my-1">{product.price}</p>
             </div>
+
+            
           </div>
+          
         </div>
       </div>
     ))}
