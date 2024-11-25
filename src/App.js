@@ -2,6 +2,7 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import Cookies from 'js-cookie';
 import './App.css'; // Para los estilos de modo claro/oscuro
 
 // Componentes de mensajes
@@ -22,7 +23,6 @@ const ProductCarrusel = lazy(() => import('./components/ProductCarrusel'));
 function App() {
   const [likedProducts, setLikedProducts] = useState([]); // Productos desde backend
   const [filteredProducts, setFilteredProducts] = useState([]); // Productos filtrados
-
   const [categoryFilter, setCategoryFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
   const [priceFilter, setPriceFilter] = useState('');
@@ -34,16 +34,23 @@ function App() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false); // Controla el mensaje de éxito
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light'); // Estado para el tema
+  // Obtener el tema desde las cookies o usar 'light' como predeterminado
+  const [theme, setTheme] = useState(Cookies.get('theme') || 'light');
 
   const [scrapedProducts, setScrapedProducts] = useState([]); // Productos del backend
+
+    // Persistir el tema en las cookies
+    useEffect(() => {
+      Cookies.set('theme', theme, { expires: 30 }); // La cookie expira en 30 días
+      document.body.className = theme; // Cambiar la clase del body para aplicar los estilos de tema
+    }, [theme]);
 
   // Hook para obtener los productos desde el backend (scraping)
   useEffect(() => {
     const fetchScrapedProducts = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(process.env.REACT_APP_URL_BACK + '/descuentos'); // URL del backend
+        const response = await axios.get('http://localhost:8080/descuentos'); // URL del backend
         setScrapedProducts(response.data); // Guardar productos obtenidos
         setIsLoading(false);
       } catch (error) {
