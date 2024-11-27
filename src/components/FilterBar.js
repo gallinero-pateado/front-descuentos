@@ -46,6 +46,7 @@ function FilterBar({ handleCategoryFilter, handlePriceSort, handleTypeFilter, th
         <option value="Cupon">Cupón</option>
       </select>
 
+
       {/* Botón para abrir el modal del mapa */}
       <button
         onClick={() => setIsModalOpen(true)}
@@ -59,38 +60,37 @@ function FilterBar({ handleCategoryFilter, handlePriceSort, handleTypeFilter, th
       </button>
 
 
-{/* Modal para el mapa */}
-<ReactModal
-  isOpen={isModalOpen}
-  onRequestClose={() => setIsModalOpen(false)}
-  className={`w-11/12 max-w-4xl h-[60vh] rounded-lg shadow-lg p-4 mx-auto my-auto flex flex-col z-50 transition duration-300 ${
-    theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'
-  }`}
-  overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-40"
->
-  {/* Encabezado del modal */}
-  <div className="flex justify-between items-center mb-4">
-    <h2 className="text-xl font-semibold">
-      {theme === 'dark' ? 'Mapa de Ubicaciones' : 'Mapa de Ubicaciones'}
-    </h2>
-    <button
-      onClick={() => setIsModalOpen(false)}
-      className={`font-bold px-2 py-1 rounded transition duration-300 ${
-        theme === 'dark'
-          ? 'bg-gray-600 text-white hover:bg-gray-500'
-          : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
-      }`}
-    >
-      X
-    </button>
-  </div>
+      {/* Modal para el mapa */}
+      <ReactModal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        className={`w-11/12 max-w-4xl h-[60vh] rounded-lg shadow-lg p-4 mx-auto my-auto flex flex-col z-50 transition duration-300 ${
+          theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'
+        }`}
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-40"
+      >
+        {/* Encabezado del modal */}
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold">
+            {theme === 'dark' ? 'Mapa de Ubicaciones' : 'Mapa de Ubicaciones'}
+          </h2>
+          <button
+            onClick={() => setIsModalOpen(false)}
+            className={`font-bold px-2 py-1 rounded transition duration-300 ${
+              theme === 'dark'
+                ? 'bg-gray-600 text-white hover:bg-gray-500'
+                : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+            }`}
+          >
+            X
+          </button>
+        </div>
 
-  {/* Contenido del modal */}
-  <div className="flex-1">
-    <Ubicacion theme={theme} />
-  </div>
-</ReactModal>
-
+        {/* Contenido del modal */}
+        <div className="flex-1">
+          <Ubicacion theme={theme} />
+        </div>
+      </ReactModal>
 
     </div>
   );
