@@ -15,7 +15,7 @@ const DarkModeToggle = ({ theme, toggleTheme }) => {
       {/* Elemento deslizante */}
       <div
         className={`absolute w-7 h-7 rounded-full shadow-md transform transition-transform duration-300 ${
-          theme === 'dark' ? 'bg-yellow-500 translate-x-10' : 'bg-white translate-x-0'
+          theme === 'dark' ? 'bg-blue-400 translate-x-10' : 'bg-white translate-x-0'
         }`}
       />
 

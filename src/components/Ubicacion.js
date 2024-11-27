@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
 
-const Ubicacion = ({theme}) => {
+const Ubicacion = ({ theme }) => {
   const mapRef = useRef(null);
   const userMarkerRef = useRef(null);
-
+  const mapInstanceRef = useRef(null);
 
   useEffect(() => {
     // Datos de ubicaciones
@@ -201,28 +201,27 @@ const Ubicacion = ({theme}) => {
         },
       ];
 
-      const map = new window.google.maps.Map(mapRef.current, {
+      // Inicializar el mapa y guardarlo en el ref para que esté disponible en otras funciones
+      mapInstanceRef.current = new window.google.maps.Map(mapRef.current, {
         zoom: 11,
         center: coords,
         styles: mapStyles,
       });
 
-      const infoWindow = new window.google.maps.InfoWindow();
-
       // Añadir marcadores de los locales
       locales.forEach((loc) => {
         const marker = new window.google.maps.Marker({
           position: loc.coords,
-          map,
+          map: mapInstanceRef.current,
           icon: {
             url: loc.icon,
             scaledSize: new window.google.maps.Size(26, 26),
           },
         });
 
-        marker.addListener("click", () => {
-          // Aplicar estilos al contenido del InfoWindow
-          const content = `
+        // Crear una instancia de InfoWindow para cada marcador
+        const infoWindow = new window.google.maps.InfoWindow({
+          content: `
             <div style="
               padding: 10px;
               font-size: 14px;
@@ -232,56 +231,57 @@ const Ubicacion = ({theme}) => {
               box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
             ">
               <h3 style="margin: 0 0 5px; font-size: 16px; font-weight: bold;">${loc.nombre}</h3>
-
             </div>
-          `;
-          infoWindow.setContent(content);
-          infoWindow.open(map, marker);
+          `,
+        });
+
+        // Añadir un evento al marcador para abrir el InfoWindow al hacer clic
+        marker.addListener("click", () => {
+          infoWindow.open(mapInstanceRef.current, marker);
         });
       });
 
       // Añadir marcador para la ubicación del usuario
-      const addUserLocation = () => {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              const userCoords = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-              };
-
-              if (userMarkerRef.current) {
-                userMarkerRef.current.setPosition(userCoords);
-              } else {
-                userMarkerRef.current = new window.google.maps.Marker({
-                  position: userCoords,
-                  map,
-                  icon: {
-                    url: "data:image/svg+xml;charset=UTF-8," +
-                      encodeURIComponent(
-                        `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="blue" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="blue"/><circle cx="12" cy="12" r="6" fill="white"/></svg>`
-                      ),
-                    scaledSize: new window.google.maps.Size(24, 24),
-                  },
-                });
-              }
-
-              map.setCenter(userCoords);
-              map.setZoom(14);
-            },
-            (error) => {
-              console.error("Error al obtener la ubicación del usuario", error);
-            }
-          );
-        } else {
-          console.error("La geolocalización no es compatible con este navegador.");
-        }
-      };
-
       addUserLocation();
     };
 
-    if (window.google) {
+    const addUserLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const userCoords = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
+
+            if (userMarkerRef.current) {
+              // Si el marcador ya existe, actualizar su posición
+              userMarkerRef.current.setPosition(userCoords);
+            } else {
+              // Crear el marcador si aún no existe
+              userMarkerRef.current = new window.google.maps.Marker({
+                position: userCoords,
+                map: mapInstanceRef.current,
+                title: "Tu ubicación", // Añadir título al marcador
+              });
+            }
+
+            mapInstanceRef.current.setCenter(userCoords);
+            mapInstanceRef.current.setZoom(14);
+          },
+          (error) => {
+            console.error("Error al obtener la ubicación del usuario", error);
+          },
+          {
+            enableHighAccuracy: true,
+          }
+        );
+      } else {
+        console.error("La geolocalización no es compatible con este navegador.");
+      }
+    };
+
+    if (window.google && window.google.maps) {
       initMap();
     } else {
       console.error("Google Maps API no está cargado.");
