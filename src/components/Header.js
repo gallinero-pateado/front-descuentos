@@ -23,7 +23,7 @@ const Header = ({ theme, toggleTheme }) => {
         {/* Navegación oculta en móviles, visible en pantallas medianas en adelante */}
         <nav className={`flex-col md:flex-row md:flex ${isMenuOpen ? 'flex' : 'hidden'} md:items-center md:space-x-6 mt-4 md:mt-0`}>
         <DarkModeToggle theme={theme} toggleTheme={toggleTheme} />
-          <a href="/" className="bg-[#A3D9D3] text-[#0092BC] px-8 py-3 rounded mr-5 font-bold italic text-lg hover:bg-[#0092BC] hover:text-white
+          <a href="https://ulink.tssw.info/unificacion" className="bg-[#A3D9D3] text-[#0092BC] px-8 py-3 rounded mr-5 font-bold italic text-lg hover:bg-[#0092BC] hover:text-white
             transition duration-300">
             Volver
           </a>
