@@ -6,7 +6,7 @@ const DarkModeToggle = ({ theme, toggleTheme }) => {
     <div
       onClick={toggleTheme}
       className={`relative w-20 h-10 rounded-full p-1 cursor-pointer flex items-center justify-between transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-gray-800' : 'bg-gray-300'
+        theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'
       }`}
     >
       {/* Ícono de Sol para modo claro */}
