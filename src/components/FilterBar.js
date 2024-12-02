@@ -97,3 +97,4 @@ function FilterBar({ handleCategoryFilter, handlePriceSort, handleTypeFilter, th
 }
 
 export default FilterBar;
+
