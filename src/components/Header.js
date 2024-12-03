@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, ChevronRight } from 'lucide-react';
+import Cookies from 'js-cookie';
 import DarkModeToggle from './DarkModeToggle'; // Importa el componente DarkModeToggle
 
 const Header = ({ theme, toggleTheme }) => {
@@ -8,6 +9,11 @@ const Header = ({ theme, toggleTheme }) => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen); // Cambia el estado del menú abierto/cerrado
+  };
+
+  const handleLogout = () => {
+    Cookies.remove('authToken'); // Elimina el token de las cookies
+    window.location.href = 'https://ulink.tssw.info/'; // Redirige al usuario al login
   };
 
   // Cierra el menú al hacer clic fuera
@@ -33,9 +39,7 @@ const Header = ({ theme, toggleTheme }) => {
     <header className="bg-[#0092BC] text-white p-6 relative z-20">
       <div className="flex justify-between items-center mx-auto">
         {/* Título */}
-        <h1 className="text-5xl font-bold italic">
-          ULINK
-        </h1>
+        <h1 className="text-5xl font-bold italic">ULINK</h1>
 
         {/* Contenedor para el botón y toggle */}
         <div className="flex items-center space-x-4">
@@ -50,6 +54,12 @@ const Header = ({ theme, toggleTheme }) => {
             >
               Volver
             </a>
+            <button
+              onClick={handleLogout}
+              className="bg-[#A3D9D3] text-[#0092BC] px-8 py-3 rounded font-bold italic text-lg hover:bg-[#0092BC] hover:text-white transition duration-300"
+            >
+              Salir
+            </button>
           </nav>
 
           {/* Botón de menú hamburguesa visible en pantallas pequeñas */}
@@ -69,7 +79,7 @@ const Header = ({ theme, toggleTheme }) => {
         </div>
       </div>
 
-      {/* Menú desplegable en pantallas mas pequeñas */}
+      {/* Menú desplegable en pantallas más pequeñas */}
       {isMenuOpen && (
         <nav
           ref={menuRef}
@@ -77,10 +87,16 @@ const Header = ({ theme, toggleTheme }) => {
         >
           <a
             href="https://ulink.tssw.info/unificacion"
-            className="block py-4 px-2 rounded-md  transition-colors duration-200 hover:bg-[#DAEDF2] hover:text-[#0092BC] active:bg-[#DAEDF2] active:text-[#0092BC] text-left"
+            className="block py-4 px-2 rounded-md transition-colors duration-200 hover:bg-[#DAEDF2] hover:text-[#0092BC] active:bg-[#DAEDF2] active:text-[#0092BC] text-left"
           >
             Volver
           </a>
+          <button
+            onClick={handleLogout}
+            className="block py-4 px-2 rounded-md transition-colors duration-200 hover:bg-[#DAEDF2] hover:text-[#0092BC] active:bg-[#DAEDF2] active:text-[#0092BC] text-left"
+          >
+            Salir
+          </button>
           <ChevronRight
             onClick={toggleMenu}
             className="mt-auto self-end cursor-pointer hover:text-[#DAEDF2] transition duration-300"
