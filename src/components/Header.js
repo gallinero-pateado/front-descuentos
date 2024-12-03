@@ -12,8 +12,24 @@ const Header = ({ theme, toggleTheme }) => {
   };
 
   const handleLogout = () => {
-    Cookies.remove('authToken'); // Elimina el token de las cookies
-    window.location.href = 'https://ulink.tssw.info/'; // Redirige al usuario al login
+    const cookieOptions = {
+      path: '/', 
+      secure: true, 
+      sameSite: 'Strict', 
+      domain: ".tssw.info" 
+    };
+
+    // Eliminar cookies relacionadas con la autenticación
+    Cookies.remove('authToken', cookieOptions);
+    Cookies.remove('uid', cookieOptions);
+
+    console.log('Cookies eliminadas:', {
+      authToken: Cookies.get('authToken'),
+      uid: Cookies.get('uid')
+    });
+
+    // Redirigir al login
+    window.location.href = 'https://ulink.tssw.info/';
   };
 
   // Cierra el menú al hacer clic fuera
