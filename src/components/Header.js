@@ -62,26 +62,10 @@ const Header = ({ theme, toggleTheme }) => {
           {/* Componente de modo oscuro */}
           <DarkModeToggle theme={theme} toggleTheme={toggleTheme} />
 
-          {/* Botón "Volver" para pantallas grandes */}
-          <nav className="hidden md:flex items-center space-x-4">
-            <a
-              href="https://ulink.tssw.info/unificacion"
-              className="bg-[#A3D9D3] text-[#0092BC] px-8 py-3 rounded font-bold italic text-lg hover:bg-[#0092BC] hover:text-white transition duration-300"
-            >
-              Volver
-            </a>
-            <button
-              onClick={handleLogout}
-              className="bg-[#A3D9D3] text-[#0092BC] px-8 py-3 rounded font-bold italic text-lg hover:bg-[#0092BC] hover:text-white transition duration-300"
-            >
-              Salir
-            </button>
-          </nav>
-
-          {/* Botón de menú hamburguesa visible en pantallas pequeñas */}
+          {/* Botón de menú hamburguesa siempre visible */}
           <button
             onClick={toggleMenu}
-            className={`p-2 rounded-full md:hidden ${
+            className={`p-2 rounded-full ${
               theme === 'dark' ? 'bg-gray-700' : 'bg-[#DAEDF2]'
             }`}
             aria-label="Toggle menu"
@@ -95,7 +79,7 @@ const Header = ({ theme, toggleTheme }) => {
         </div>
       </div>
 
-      {/* Menú desplegable en pantallas más pequeñas */}
+      {/* Menú desplegable */}
       {isMenuOpen && (
         <nav
           ref={menuRef}
@@ -105,7 +89,7 @@ const Header = ({ theme, toggleTheme }) => {
             href="https://ulink.tssw.info/unificacion"
             className="block py-4 px-2 rounded-md transition-colors duration-200 hover:bg-[#DAEDF2] hover:text-[#0092BC] active:bg-[#DAEDF2] active:text-[#0092BC] text-left"
           >
-            Volver
+            Volver Atrás
           </a>
           <button
             onClick={handleLogout}
