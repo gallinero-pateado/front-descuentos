@@ -237,7 +237,15 @@ function App() {
                     />
   
   
-                    <SearchComponent products={likedProducts} setFilteredProducts={setFilteredProducts} />
+                    <SearchComponent
+                    products={likedProducts}
+                    setFilteredProducts={setFilteredProducts}
+                    categoryFilter={categoryFilter}
+                    typeFilter={typeFilter}
+                    priceRange={priceRange}
+                    theme={theme}
+                  />
+
                     <FilterBar
                       handleCategoryFilter={handleCategoryFilter}
                       handlePriceSort={handlePriceSort}
