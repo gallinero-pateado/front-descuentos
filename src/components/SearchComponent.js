@@ -1,27 +1,45 @@
 import React, { useState, useEffect } from 'react';
 
-function SearchComponent({ products, setFilteredProducts, theme }) {
+function SearchComponent({ products, setFilteredProducts, categoryFilter, typeFilter, priceRange, theme }) {
   const [query, setQuery] = useState('');
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       const sanitizedQuery = query.replace(/[^a-zA-Z0-9\s]/g, '').trim().toLowerCase();
 
-      if (sanitizedQuery.length < 3) {
-        setFilteredProducts(products);
-        return;
+      // Filtrar por búsqueda y respetar los filtros aplicados
+      let filtered = products;
+
+      // Filtrar por categoría
+      if (categoryFilter) {
+        filtered = filtered.filter(product => product.category === categoryFilter);
       }
 
-      const filtered = products.filter(product =>
-        product.name.toLowerCase().includes(sanitizedQuery) || 
-        product.description.toLowerCase().includes(sanitizedQuery)
-      );
+      // Filtrar por tipo
+      if (typeFilter) {
+        filtered = filtered.filter(product => product.type === typeFilter);
+      }
+
+      // Filtrar por rango de precios
+      filtered = filtered.filter(product => {
+        if (product.price === 'Cupón') return true;
+        const price = parseInt(product.price.replace(/[^0-9]/g, ''));
+        return price >= priceRange.min && price <= priceRange.max;
+      });
+
+      // Filtrar por búsqueda
+      if (sanitizedQuery.length >= 3) {
+        filtered = filtered.filter(product =>
+          product.name.toLowerCase().includes(sanitizedQuery) ||
+          product.description.toLowerCase().includes(sanitizedQuery)
+        );
+      }
 
       setFilteredProducts(filtered);
     }, 300);
 
     return () => clearTimeout(timeout);
-  }, [query, products, setFilteredProducts]);
+  }, [query, products, categoryFilter, typeFilter, priceRange, setFilteredProducts]);
 
   return (
     <input
