@@ -113,16 +113,31 @@ function App() {
     }
   }, [scrapedProducts]);
   
-  // Guardar el tema en las cookies cada vez que cambie
-  useEffect(() => {
-    Cookies.set('theme', theme, { expires: 365 }); // Guardar tema en cookies con 1 año de expiración
-    document.body.className = theme; // Aplicar tema al cuerpo
-  }, [theme]);
+    // Guardar el tema en las cookies con un dominio compartido
+    useEffect(() => {
+      Cookies.set('theme', theme, {
+        expires: 365, // 1 año de duración
+        path: '/', // Disponible en todas las rutas
+        domain: '.tssw.info', // Compartido entre subdominios
+        secure: true, // Requiere HTTPS
+        sameSite: 'Strict' // Protege contra ataques CSRF
+      });
+      document.body.className = theme; // Aplicar tema al cuerpo
+    }, [theme]);
 
-  // Función para alternar entre modos claro y oscuro
-  const toggleTheme = () => {
-    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
-  };
+
+    const toggleTheme = () => {
+      const newTheme = theme === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+      Cookies.set('theme', newTheme, {
+        expires: 365,
+        path: '/',
+        domain: '.tssw.info',
+        secure: true,
+        sameSite: 'Strict'
+      });
+    };
+
   
     // Filtrar productos por categoría, tipo, precio y rango de precios
     const handleFilters = (selectedCategory, selectedPriceSort, selectedType) => {
