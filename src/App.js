@@ -223,9 +223,6 @@ function App() {
   
                   {isLoading && <LoadingMessage message="Cargando productos..." />}
                   {hasError && <ErrorMessage message="Ocurrió un error al cargar los productos." />}
-                  {showSuccessMessage && (
-                    <SuccessMessage message="Productos cargados correctamente." onClose={() => setShowSuccessMessage(false)} />
-                  )}
   
                   <section className="my-12">
                     <h1 className="text-4xl font-bold mb-6">Bienvenido a la sección de descuentos</h1>
