@@ -55,7 +55,12 @@ const Header = ({ theme, toggleTheme }) => {
     <header className="bg-[#0092BC] text-white p-6 relative z-20">
       <div className="flex justify-between items-center mx-auto">
         {/* Título */}
-        <h1 className="text-5xl font-bold italic">ULINK</h1>
+        <h1 className="text-5xl font-bold italic">
+          <a href="https://ulink.tssw.info/unificacion" className="hover:no-underline">
+            ULINK
+          </a>
+        </h1>
+
 
         {/* Contenedor para el botón y toggle */}
         <div className="flex items-center space-x-4">
