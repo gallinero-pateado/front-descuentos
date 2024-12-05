@@ -55,6 +55,28 @@ function App() {
       }
     );
   }, []);
+  
+  useEffect(() => {
+    const authToken = Cookies.get('authToken');
+    if (!authToken) {
+      window.location.href = 'https://ulink.tssw.info/';
+      return;
+    }
+  
+    axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+  
+    axios.interceptors.response.use(
+      response => response,
+      error => {
+        if (error.response && error.response.status === 401) {
+          setErrorMessage('Sesión expirada. Por favor, vuelve a iniciar sesión.');
+          window.location.href = 'https://ulink.tssw.info/';
+        }
+        return Promise.reject(error);
+      }
+    );
+  }, []);
+  
 
   // Hook para obtener productos desde el backend
   useEffect(() => {
