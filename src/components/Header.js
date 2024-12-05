@@ -56,9 +56,12 @@ const Header = ({ theme, toggleTheme }) => {
       <div className="flex justify-between items-center mx-auto">
         {/* Título */}
         <h1 className="text-5xl font-bold italic">
+          <div className="flex items-center space-x-4">
+        <img src="./logo-utem.png" alt="Logo de Ulink" className="h-20" />
           <a href="https://ulink.tssw.info/unificacion" className="hover:no-underline">
             ULINK
           </a>
+          </div>
         </h1>
 
 
